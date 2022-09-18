@@ -5,37 +5,111 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
+    <style>
+      *, html, body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .parallax {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+      }
+      #app {
+        position: fixed;
+        color: yellow;
+        justify-content: center;
+        align-self: center;
+        text-align: center;
+        width: 50%;
+      }
+      .bg1 {
+        background-image: url('./1.jpg');
+      }
+      .bg2 {
+        background-image: url('./2.jpg');
+      }
+      .bg3 {
+        background-image: url('./3.jpg');
+      }
+      #todo-title {
+        margin-bottom: 40px;
+      }
+      #todo-input {
+        align-self: center;
+        margin-bottom: 10px
+      }
+      #todo-submit {
+        align-self: center;
+      }
+      #todo-output {
+        position: relative;
+        left: 600px;
+        bottom: 130px;
+        font-size: larger;
+
+      }
+    </style>
   </head>
   <body>
+    <div class="parallax bg1">
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
+      <div id="todo-title">
+        <h1>To-Do List</h1>
+      </div>
+      <div id="todo-subtitle">
+        <h3>~ Today I need to ~</h3>
+      </div>
       <!-- Section: input -->
+      <input id="todo-input" type="text" placeholder="tuliskan kegiatan..." name="todo-input" id="todo-input">
+      <button id="todo-submit">Submit</button>
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
 
       <!-- Section output -->
+      <ul id="todo-output">
+        <h2>Your list</h2>
+      </ul>
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
     </div>
+    </div>
+    <div class="parallax bg2"></div>
+    <div class="parallax bg3"></div>
 
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
-
+      let button = document.getElementById('todo-submit');
+      let input = document.getElementById('todo-input');
+      let output = document.getElementById('todo-output');
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
-
+      function fnClickHandler(toDoItem) {
+        const listElement = document.createElement('li');
+        listElement.innerHTML = toDoItem.value;
+        output.appendChild(listElement);
+        input.value = '';
+      }
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener('click', () => {
+        fnClickHandler(input);
+      });
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      input.addEventListener("keypress", (keyboard) => {
+       if (keyboard.key == "Enter") {
+         fnClickHandler(input);
+       }
+      });
     </script>
   </body>
 </html>
